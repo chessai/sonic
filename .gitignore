@@ -3,6 +3,8 @@ target/*
 *~
 *#
 .cargo
+*.swp
+*.swo
 
 data/store/fst/*
 data/store/kv/*
