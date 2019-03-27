@@ -1,7 +1,10 @@
-with import <nixpkgs> {};
+{ nixpkgs ? import <nixpkgs> {
+    config.packageOverrides = pkgs: {
+      defaultCrateOverrides = {
+        librocksdb = attrs: { buildInputs = [ pkgs.clang.cc.lib ]; };
+      }; 
+    };
+  }
+}:
 
-((import ./Cargo.nix).sonic_server {}).override {
-  crateOverrides = defaultCrateOverrides // {
-    librocksdb = attrs: { buildInputs = [ clang ]; };
-  };
-}
+(import ./Cargo.nix { inherit nixpkgs; }).sonic_server {}
